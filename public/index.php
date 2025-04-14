@@ -1,4 +1,18 @@
 <?php
+
+// Suppress specific Carbon deprecation warnings
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE);
+ini_set('display_errors', 0);
+
+// Define specific warnings to suppress
+$errorPattern = '/Implicitly marking parameter .* as nullable is deprecated/';
+set_error_handler(function($errno, $errstr) use ($errorPattern) {
+    if (preg_match($errorPattern, $errstr)) {
+        return true; // Suppress this specific error
+    }
+    return false; // Let PHP handle other errors
+}, E_DEPRECATED);
+
 ob_start();
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, GET, DELETE, PUT, PATCH, OPTIONS');

@@ -3,6 +3,10 @@
         Options -MultiViews -Indexes
     </IfModule>
 
+    # Suppress PHP errors and warnings
+    php_flag display_errors off
+    php_value error_reporting 0
+
     RewriteEngine On
 
     # Handle Authorization Header
@@ -20,5 +24,14 @@
     RewriteRule ^ index.php [L]
 </IfModule>
 
-php_flag display_errors off
-php_value error_reporting E_ALL & ~E_DEPRECATED & ~E_STRICT
+# Prevent viewing of .htaccess file
+<Files .htaccess>
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Prevent viewing of .user.ini file
+<Files .user.ini>
+    Order allow,deny
+    Deny from all
+</Files>
