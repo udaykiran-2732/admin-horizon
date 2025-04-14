@@ -10,6 +10,9 @@
     php_flag display_errors off
     php_value error_reporting 0
     
+    # Handle SSL/HTTPS properly with proxies
+    SetEnvIf X-Forwarded-Proto https HTTPS=on
+    
     RewriteEngine On
     RewriteRule ^(.*)$ public/$1 [L]
     
