@@ -6,14 +6,18 @@
         Header set Access-Control-Allow-Origin "*"
     </FilesMatch>
     
-    # Suppress PHP errors and warnings
-    php_flag display_errors off
-    php_value error_reporting 0
+    # Temporarily enable error reporting for debugging
+    php_flag display_errors on
+    php_value error_reporting E_ALL
     
     # Handle SSL/HTTPS properly with proxies
     SetEnvIf X-Forwarded-Proto https HTTPS=on
     
     RewriteEngine On
+    
+    # Redirect all requests to public folder
+    # More robust pattern to catch all requests
+    RewriteCond %{REQUEST_URI} !^/public/
     RewriteRule ^(.*)$ public/$1 [L]
     
     # Handle Authorization Header

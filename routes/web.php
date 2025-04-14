@@ -32,6 +32,7 @@ use App\Http\Controllers\OutdoorFacilityController;
 use App\Http\Controllers\PropertysInquiryController;
 use App\Http\Controllers\VerifyCustomerFormController;
 use Illuminate\Auth\Notifications\ResetPassword;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,11 @@ Route::get('customer-terms-conditions', [SettingController::class, 'show_terms_c
 
 
 Auth::routes();
+
+// Explicitly define login routes to ensure they work
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [LoginController::class, 'login']);
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('privacypolicy', [HomeController::class, 'privacy_policy']);
 Route::post('/webhook/razorpay', [WebhookController::class, 'razorpay']);
