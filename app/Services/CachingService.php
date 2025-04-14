@@ -31,8 +31,15 @@ class CachingService {
                     return $language;
                 });
             }
-            return null;
         }
+
+        // Create a default English language object if no language is found
+        $language = new Language();
+        $language->name = "English";
+        $language->code = "en";
+        $language->file = "en.json";
+        
+        return $language;
     }
     public function removeSystemCache($key) {
         Cache::forget($key);

@@ -3,9 +3,20 @@
         Options -MultiViews -Indexes
     </IfModule>
 
-    # Suppress PHP errors and warnings
-    php_flag display_errors off
-    php_value error_reporting 0
+    # Temporarily enable error reporting for debugging
+    php_flag display_errors on
+    php_value error_reporting E_ALL
+
+    # Protect migrate.php except from specific IPs
+    <Files "migrate.php">
+        Order Deny,Allow
+        Deny from all
+        # Add your IP address here
+        Allow from 127.0.0.1
+        Allow from ::1
+        Allow from all
+        # You can add more IPs by adding more "Allow from" lines
+    </Files>
 
     RewriteEngine On
 
